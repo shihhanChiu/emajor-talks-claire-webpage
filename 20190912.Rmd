@@ -1,0 +1,90 @@
+---
+title: "生成網頁"
+author: "Shihhan"
+date: "2019年9月12日"
+output: html_document
+params:
+  speaker: "Claire"
+  speechContent: "職涯經驗分享座談會"
+  speakerImage: "https://www.ntpu.edu.tw/admin/a3/files/a3_photo/20190805162930.jpg"
+---
+```{r}
+
+#params$speaker
+#params$speechContent
+#params$speakerImage
+
+speaker <- "Claire"
+speechContent <- "職涯經驗分享座談會"
+speakerImage <- "https://www.ntpu.edu.tw/admin/a3/files/a3_photo/20190805162930.jpg"
+
+#讀入html檔,放進index(加encoding = 'UTF-8'解決中文亂碼)
+index <- readLines("index.html",encoding = 'UTF-8')
+
+#把要取代的關鍵字取代掉
+library(stringr)
+#str_replace(index,"_Speaker_",speaker)
+str_replace_all(
+  index,
+  c(
+    "_Speaker_" = speaker,
+    "_speechContent_" = speechContent,
+    "assets/img/intro.jpg" = speakerImage
+  )
+) -> newindexContent
+
+#生成新網頁
+writeLines(newindexContent, "newindex.html",useByte = TRUE)
+
+```
+
+```{r}
+index <- readLines("index.html",encoding = 'UTF-8')
+
+index[[20]]
+# 把要取代的關鍵字取代掉
+library(stringr)
+#str_replace(indexContent,"_SPEAKER_",speaker)
+str_replace_all(
+index,
+c(
+"_Speaker_"=params$speaker,
+"_speechContent_"=params$speechContent,
+"assets/img/intro.jpg"=params$speakerImage
+)
+) -> newindexContent
+
+writeLines(newindexContent,"new.html",useByte = TRUE)
+```
+
+```{r}
+params$speaker
+params$speechContent
+params$speakerImage
+```
+
+```{r}
+
+```
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
