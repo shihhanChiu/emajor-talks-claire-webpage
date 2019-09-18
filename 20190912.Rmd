@@ -9,14 +9,14 @@ params:
   speakerImage: "https://www.ntpu.edu.tw/admin/a3/files/a3_photo/20190805162930.jpg"
 ---
 ```{r}
+Sys.setlocale(category = "LC_ALL", locale = "UTF-8")
+params$speaker
+params$speechContent
+params$speakerImage
 
-#params$speaker
-#params$speechContent
-#params$speakerImage
-
-speaker <- "Claire"
-speechContent <- "職涯經驗分享座談會"
-speakerImage <- "https://www.ntpu.edu.tw/admin/a3/files/a3_photo/20190805162930.jpg"
+#speaker <- "Claire"
+#speechContent <- "職涯經驗分享座談會"
+#speakerImage <- "https://www.ntpu.edu.tw/admin/a3/files/a3_photo/20190805162930.jpg"
 
 #讀入html檔,放進index(加encoding = 'UTF-8'解決中文亂碼)
 index <- readLines("index.html",encoding = 'UTF-8')
@@ -27,9 +27,9 @@ library(stringr)
 str_replace_all(
   index,
   c(
-    "_Speaker_" = speaker,
-    "_speechContent_" = speechContent,
-    "assets/img/intro.jpg" = speakerImage
+    "_Speaker_" = params$speaker,
+    "_speechContent_" = params$speechContent,
+    "assets/img/intro.jpg" = params$speakerImage
   )
 ) -> newindexContent
 
